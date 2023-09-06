@@ -15,6 +15,7 @@ function CreditCardForm() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
+    
     switch (name) {
       case 'cardNumber':
         setCardNumber(value);
