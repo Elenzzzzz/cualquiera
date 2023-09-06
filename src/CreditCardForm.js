@@ -25,6 +25,13 @@ const handledata = (e) =>{
     });
 }
 
+
+const handlenfoque = (e) =>{
+    setState({
+        ...state,
+      focus: e.target.name
+    });
+}
   
   return   (
       
@@ -34,7 +41,7 @@ const handledata = (e) =>{
         expiry={state.expiry}
         name={state.name}
         cvc={state.cvc}
-        focused=""
+        focused={state.focus}
       />
 
     <div className="credit-card-form">
@@ -42,18 +49,22 @@ const handledata = (e) =>{
       <form>
         <div>
           <label>Número de tarjeta:</label>
-          <input
+          <input 
+            className='cajas'
             type="number"
+            onFocus={handlenfoque}
             name="number"
             id="number"
             onChange={handledata}
-            placeholder="1234 5678 91011 121314"
+            placeholder="Numero de tarjeta"
           />
         </div>
         <div>
           <label>Nombre en la tarjeta:</label>
           <input
+            className='cajas'
             type="name"
+            onFocus={handlenfoque}
             name="name"
             id="name"
             onChange={handledata}
@@ -64,6 +75,8 @@ const handledata = (e) =>{
           <label>Fecha de vencimiento:</label>
           <input
             type="number"
+            className='cajas'
+            onFocus={handlenfoque}
             name="expiry"
             id="expiry"
             onChange={handledata}
@@ -74,11 +87,17 @@ const handledata = (e) =>{
           <label>CVC:</label>
           <input
             type="number"
+            className='cajas'
+            onFocus={handlenfoque}
             name="cvc"
             id="cvc"
             onChange={handledata}
             placeholder="ingrese CVC"
           />
+        </div>
+        
+        <div className='space'>
+        <button className='btn'>pagar</button>
         </div>
       </form>
     </div>
