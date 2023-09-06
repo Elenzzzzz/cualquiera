@@ -3,9 +3,7 @@
 
 import React, { useState } from 'react';
 import './CreditCardForm.css';
-var image = document.createElement("img");
-image.src = "img/logo.jpeg";
-document.body.appendChild(image);
+
 function CreditCardForm() {
   const [cardNumber, setCardNumber] = useState('');
   const [cardName, setCardName] = useState('');
@@ -33,20 +31,19 @@ function CreditCardForm() {
     }
 
   };
-
+  
   return (
     <div className="credit-card-form">
-      <h6>Ingrese los datos de su tarjeta de crédito</h6>
-    
+      <h4 >Ingrese los datos de su tarjeta de crédito</h4>
       <form>
         <div>
           <label>Número de tarjeta:</label>
           <input
-            type="text"
+            type="number"
             name="cardNumber"
             value={cardNumber}
             onChange={handleInputChange}
-            placeholder="1234 5678 9012 3456"
+            placeholder="1234 5678 91011 121314"
           />
         </div>
         <div>
@@ -62,7 +59,7 @@ function CreditCardForm() {
         <div>
           <label>Fecha de vencimiento:</label>
           <input
-            type="text"
+            type="date"
             name="cardExpiry"
             value={cardExpiry}
             onChange={handleInputChange}
