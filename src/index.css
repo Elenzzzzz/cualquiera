@@ -50,7 +50,7 @@ code {
 /* Estilo personalizado para la clase "cajas" (inputs) */
 .cajas {
   display: block;
-  width: 25%; /* Ajusta el ancho como desees, por ejemplo, 60% del contenedor */
+  width: 50%; /* Ajusta el ancho como desees, por ejemplo, 60% del contenedor */
   margin: 0 auto; /* Centra horizontalmente en su contenedor */
   padding: 6px; /* Reducir el relleno para hacerlos más cortos */
   font-size: 14px; /* Reducir el tamaño de la fuente */
@@ -70,4 +70,64 @@ code {
 .cajas:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* Estilo para la clase "input" */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
+
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3182ce;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1a5b9c;
 }
