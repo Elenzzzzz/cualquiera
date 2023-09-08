@@ -1,8 +1,11 @@
 // src/CreditCardForm.js
 
+
 import React, { useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
+import { isValid, parse, format } from 'date-fns';
+
 
 function CreditCardForm() {
   const [state, setState] = useState({
@@ -36,21 +39,39 @@ function CreditCardForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     // Validación de campos requeridos
     const newErrors = {
       number: state.number === '' ? 'El número de tarjeta es obligatorio' : '',
       name: state.name === '' ? 'El nombre en la tarjeta es obligatorio' : '',
-      expiry: state.expiry === '' ? 'La fecha de vencimiento es obligatoria' : '',
+      expiry:
+        state.expiry === ''
+          ? 'La fecha de vencimiento es obligatoria'
+          : !isExpiryValid(state.expiry)
+          ? 'La fecha de vencimiento es inválida'
+          : '',
       cvc: state.cvc === '' ? 'El CVC es obligatorio' : '',
     };
-
+  
     setErrors(newErrors);
-
+  
     // Si no hay errores, puedes enviar el formulario o realizar otras acciones.
     if (!Object.values(newErrors).some((error) => error !== '')) {
       // Envía el formulario o realiza otras acciones aquí.
     }
+  };
+  
+
+  const isExpiryValid = (expiry) => {
+    if (!expiry || expiry.length !== 5) {
+      return false;
+    }
+  
+    const [month, year] = expiry.split('/');
+    const parsedDate = parse(`01/${month}/${year}`, 'dd/MM/yyyy', new Date());
+  
+    // Verificar si la fecha es válida y si es mayor que la fecha actual
+    return isValid(parsedDate) && parsedDate > new Date();
   };
 
   return (
@@ -95,7 +116,7 @@ function CreditCardForm() {
           <div>
             <label>Fecha de vencimiento:</label>
             <input
-              type="number"
+              type="text"
               className='cajas'
               onFocus={handlenfoque}
               name="expiry"
