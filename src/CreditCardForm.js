@@ -1,11 +1,7 @@
-// src/CreditCardForm.js
-
-
 import React, { useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
-import { isValid, parse, format } from 'date-fns';
-
+import { isValid, parse } from 'date-fns';
 
 function CreditCardForm() {
   const [state, setState] = useState({
@@ -39,39 +35,34 @@ function CreditCardForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     // Validación de campos requeridos
     const newErrors = {
       number: state.number === '' ? 'El número de tarjeta es obligatorio' : '',
       name: state.name === '' ? 'El nombre en la tarjeta es obligatorio' : '',
-      expiry:
-        state.expiry === ''
-          ? 'La fecha de vencimiento es obligatoria'
-          : !isExpiryValid(state.expiry)
-          ? 'La fecha de vencimiento es inválida'
-          : '',
+      expiry: state.expiry === '' ? 'La fecha de vencimiento es obligatoria' : '',
       cvc: state.cvc === '' ? 'El CVC es obligatorio' : '',
     };
-  
+
+    // Validación de fecha de vencimiento
+    if (state.expiry !== '') {
+      const [month, year] = state.expiry.split('/');
+      const currentDate = new Date();
+      const inputDate = new Date(`20${year}`, month - 1, 1); // El 1ro de cada mes para simplificar
+
+      if (!isValid(inputDate) || inputDate > currentDate) {
+        newErrors.expiry = 'La fecha de vencimiento no es válida ';
+      } else if (currentDate > new Date(`20${year}`, month + 11, 1)) {
+        newErrors.expiry = 'La fecha de vencimiento no debe superar los 12 meses';
+      }
+    }
+
     setErrors(newErrors);
-  
+
     // Si no hay errores, puedes enviar el formulario o realizar otras acciones.
     if (!Object.values(newErrors).some((error) => error !== '')) {
       // Envía el formulario o realiza otras acciones aquí.
     }
-  };
-  
-
-  const isExpiryValid = (expiry) => {
-    if (!expiry || expiry.length !== 5) {
-      return false;
-    }
-  
-    const [month, year] = expiry.split('/');
-    const parsedDate = parse(`01/${month}/${year}`, 'dd/MM/yyyy', new Date());
-  
-    // Verificar si la fecha es válida y si es mayor que la fecha actual
-    return isValid(parsedDate) && parsedDate > new Date();
   };
 
   return (
@@ -116,7 +107,7 @@ function CreditCardForm() {
           <div>
             <label>Fecha de vencimiento:</label>
             <input
-              type="text"
+              type="number"
               className='cajas'
               onFocus={handlenfoque}
               name="expiry"
